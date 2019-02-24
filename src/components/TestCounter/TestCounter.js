@@ -1,6 +1,7 @@
+
 import React, { PureComponent } from "react";
 import "./TestCounter.css";
-import CustomReactReduxConnect from "../system/CustomReactRedux/CustomReactReduxConnect";
+import { connect } from "../system/CustomReactRedux/index";
 import { incrementCounter } from "../../actions/system_actions/system_actions";
 
 class TestCounter extends PureComponent {
@@ -39,6 +40,6 @@ const mapActionsToRedux = {
   incrementCounter
 };
 
-export default CustomReactReduxConnect(mapStateToProps, mapActionsToRedux)(
+export default connect(mapStateToProps, mapActionsToRedux)(
   TestCounter
 );
