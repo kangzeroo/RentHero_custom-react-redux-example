@@ -4,6 +4,7 @@ import CustomReactRouterContext from "./CustomReactRouterContext";
 export default function(ChildComponent) {
 
     return class HOC extends Component {
+
       render() {
         return (
           <CustomReactRouterContext.Consumer>

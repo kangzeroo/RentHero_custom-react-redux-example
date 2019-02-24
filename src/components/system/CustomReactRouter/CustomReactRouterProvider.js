@@ -10,12 +10,21 @@ export default class CustomReactRouterProvider extends Component {
 
 		state = {
 			time: new Date().getTime(),
-			matchedUrls: [],
 		}
 
 		componentDidMount() {
 			window.onpopstate = () => {
 				this.setState({
+					time: new Date().getTime(),
+				})
+			}
+		}
+
+		componentDidUpdate() {
+			const renderedComponents = document.getElementsByClassName('react-route')
+			if (renderedComponents.length === 0) {
+				window.history.pushState("", "", this.props.defaultPath)
+	        	this.setState({
 					time: new Date().getTime(),
 				})
 			}
@@ -39,7 +48,7 @@ export default class CustomReactRouterProvider extends Component {
 	render() {
 		const Context = this.props.context || CustomReactRouterContext;
 	    return (
-	      <Context.Provider value={{ history: this.history, time: this.state.time }}>
+	      <Context.Provider value={{ history: this.history, time: this.state.time, notifyMounted: () => this.setState({ time: new Date().getTime() }) }}>
 	        {this.props.children}
 	      </Context.Provider>
 	    );

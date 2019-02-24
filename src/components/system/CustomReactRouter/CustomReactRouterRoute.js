@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import uuid from 'uuid'
 import PropTypes from "prop-types";
 import CustomReactRouterContext from "./CustomReactRouterContext";
 
@@ -11,19 +10,36 @@ export default class CustomReactRouterRoute extends Component {
     exact: PropTypes.bool,
   }
 
-  renderOutput = ({ history, time }) => {
-    console.log(time)
-    console.log(document.location.pathname)
+  notifyMounted(notifyMounted) {
+    if (!this._isMounted) {
+      this._isMounted = true
+      notifyMounted()
+    }
+  }
+
+  renderOutput = ({ notifyMounted }) => {
   	if (this.props.exact) {
     		if (document.location.pathname === this.props.path) {
-  	  		return this.props.component
+          this.notifyMounted(notifyMounted)
+  	  		return (
+            <div className='react-route'>
+              { this.props.component }
+            </div>
+          )
   	  	} else {
+          this.notifyMounted(notifyMounted)
   	  		return null
   	  	}
   	} else {
   		if (document.location.pathname.indexOf(this.props.path) > -1) {
-  	  		return this.props.component
+          this.notifyMounted(notifyMounted)
+  	  		return (
+            <div className='react-route'>
+              { this.props.component }
+            </div>
+          )
   	  	} else {
+          this.notifyMounted(notifyMounted)
   	  		return null
   	  	}
   	}

@@ -5,10 +5,6 @@ import { connect } from "../system/CustomReactRedux/index";
 import { incrementCounter } from "../../actions/system_actions/system_actions";
 
 class TestCounter extends PureComponent {
-  componentDidMount() {
-    console.log(this.props);
-  }
-
   render() {
     return (
       <div id="TestCounter">
